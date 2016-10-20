@@ -1,0 +1,33 @@
+eurocopter-mysql:
+  restart: always
+  image: mysql:5.5
+  environment:
+    - MYSQL_ROOT_PASSWORD=acseo
+    - MYSQL_USER=eurocopter
+    - MYSQL_PASSWORD=eurocopter
+    - MYSQL_DATABASE=eurocopter
+  volumes:
+    - ./docker-data/eurocopter/mysql:/var/lib/mysql
+    - ./docker-data/eurocopter/mysql-conf:/etc/mysql/conf.d
+  ports:
+    - "3306"
+
+eurocopter-phpmyadmin:
+  restart: always
+  image: phpmyadmin/phpmyadmin
+  links:
+    - eurocopter-mysql:db
+  environment:
+    - PMA_ARBITRARY=1
+  ports:
+    - "80"
+elk:
+  #image: sebp/elk
+  build: ./
+  links:
+    - eurocopter-mysql:eurocopter-mysql
+  ports:
+    - "5601:5601"
+    - "9200:9200"
+    - "5044:5044"
+    - "5000:5000"
