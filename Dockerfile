@@ -9,4 +9,3 @@ COPY ./logstash/import-mysql.conf /tmp/import-mysql.conf
 # Installation du plugin logstash permettant l'import MySQL
 WORKDIR ${LOGSTASH_HOME}
 RUN gosu logstash bin/logstash-plugin install logstash-input-jdbc
-RUN gosu logstash bin/logstash -f simple-out.conf 
