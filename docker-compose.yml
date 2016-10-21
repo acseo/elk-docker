@@ -9,6 +9,7 @@ eurocopter-mysql:
   volumes:
     - ./docker-data/eurocopter/mysql:/var/lib/mysql
     - ./docker-data/eurocopter/mysql-conf:/etc/mysql/conf.d
+    - ./mysql:/docker-entrypoint-initdb.d
   ports:
     - "3306"
 
