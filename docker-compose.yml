@@ -33,3 +33,9 @@ elk:
     - "5044:5044"
     - "5000:5000"
     - "9300:9300"
+  environment:
+    - VIRTUAL_HOST=demo.airbushelicopters.serveur-recette.fr
+    - VIRTUAL_PORT=5601
+    - ALLOW_OVERRIDE=true
+    - LETSENCRYPT_HOST=demo.airbushelicopters.serveur-recette.fr
+    - LETSENCRYPT_EMAIL=nicolas.potier@acseo-conseil.fr
