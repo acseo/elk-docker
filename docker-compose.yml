@@ -20,6 +20,10 @@ eurocopter-phpmyadmin:
     - eurocopter-mysql:db
   environment:
     - PMA_ARBITRARY=1
+    - VIRTUAL_HOST=phpmyadmin.airbushelicopters.serveur-recette.fr
+    - ALLOW_OVERRIDE=true
+    - LETSENCRYPT_HOST=phpmyadmin.airbushelicopters.serveur-recette.fr
+    - LETSENCRYPT_EMAIL=nicolas.potier@acseo-conseil.fr
   ports:
     - "80"
 elk:
@@ -29,10 +33,10 @@ elk:
     - eurocopter-mysql:eurocopter-mysql
   ports:
     - "5601:5601"
-    - "9200:9200"
-    - "5044:5044"
-    - "5000:5000"
-    - "9300:9300"
+    - "9200"
+    - "5044"
+    - "5000"
+    - "9300"
   environment:
     - VIRTUAL_HOST=demo.airbushelicopters.serveur-recette.fr
     - VIRTUAL_PORT=5601
