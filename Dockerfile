@@ -1,5 +1,5 @@
 # Dockerfile for ELK stack
-# Elasticsearch 2.4.1, Logstash 2.4.0, Kibana 4.6.1
+# Elasticsearch 5.0.0 Logstash 5.0.0, Kibana 5.0.0
 
 # Build with:
 # docker build -t <repo-user>/elk .
@@ -72,7 +72,7 @@ RUN mkdir ${LOGSTASH_HOME} \
  && mkdir -p /var/log/logstash /etc/logstash/conf.d \
  && chown -R logstash:logstash ${LOGSTASH_HOME} /var/log/logstash
 
-ADD ./logstash-init /etc/init.d/logstash
+ADD  ./logstash-init /etc/init.d/logstash
 RUN sed -i -e 's#^LS_HOME=$#LS_HOME='$LOGSTASH_HOME'#' /etc/init.d/logstash \
  && chmod +x /etc/init.d/logstash
 
@@ -94,8 +94,8 @@ RUN mkdir ${KIBANA_HOME} \
  && mkdir -p /var/log/kibana \
  && chown -R kibana:kibana ${KIBANA_HOME} /var/log/kibana
 
-ADD ./kibana-init /etc/init.d/kibana
-ADD ./kibana.yml ${KIBANA_HOME}/config/kibana.yml
+ADD  ./kibana-init /etc/init.d/kibana
+ADD  ./kibana.yml ${KIBANA_HOME}/config/kibana.yml
 
 RUN sed -i -e 's#^KIBANA_HOME=$#KIBANA_HOME='$KIBANA_HOME'#' /etc/init.d/kibana \
  && chmod +x /etc/init.d/kibana
@@ -107,45 +107,70 @@ RUN sed -i -e 's#^KIBANA_HOME=$#KIBANA_HOME='$KIBANA_HOME'#' /etc/init.d/kibana 
 
 ### configure Elasticsearch
 
-ADD ./elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
+ADD  ./elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 
 
 ### configure Logstash
 
 # certs/keys for Beats and Lumberjack input
 RUN mkdir -p /etc/pki/tls/certs && mkdir /etc/pki/tls/private
-ADD ./logstash-forwarder.crt /etc/pki/tls/certs/logstash-forwarder.crt
-ADD ./logstash-forwarder.key /etc/pki/tls/private/logstash-forwarder.key
-ADD ./logstash-beats.crt /etc/pki/tls/certs/logstash-beats.crt
-ADD ./logstash-beats.key /etc/pki/tls/private/logstash-beats.key
+ADD  ./logstash-forwarder.crt /etc/pki/tls/certs/logstash-forwarder.crt
+ADD  ./logstash-forwarder.key /etc/pki/tls/private/logstash-forwarder.key
+ADD  ./logstash-beats.crt /etc/pki/tls/certs/logstash-beats.crt
+ADD  ./logstash-beats.key /etc/pki/tls/private/logstash-beats.key
 
 # filters
-ADD ./01-lumberjack-input.conf /etc/logstash/conf.d/01-lumberjack-input.conf
-ADD ./02-beats-input.conf /etc/logstash/conf.d/02-beats-input.conf
-ADD ./10-syslog.conf /etc/logstash/conf.d/10-syslog.conf
-ADD ./11-nginx.conf /etc/logstash/conf.d/11-nginx.conf
-ADD ./30-output.conf /etc/logstash/conf.d/30-output.conf
+ADD  ./01-lumberjack-input.conf /etc/logstash/conf.d/01-lumberjack-input.conf
+ADD  ./02-beats-input.conf /etc/logstash/conf.d/02-beats-input.conf
+ADD  ./10-syslog.conf /etc/logstash/conf.d/10-syslog.conf
+ADD  ./11-nginx.conf /etc/logstash/conf.d/11-nginx.conf
+ADD  ./30-output.conf /etc/logstash/conf.d/30-output.conf
 
 # patterns
-ADD ./nginx.pattern ${LOGSTASH_HOME}/patterns/nginx
+ADD  ./nginx.pattern ${LOGSTASH_HOME}/patterns/nginx
 RUN chown -R logstash:logstash ${LOGSTASH_HOME}/patterns
 
 
 ### configure logrotate
 
-ADD ./elasticsearch-logrotate /etc/logrotate.d/elasticsearch
-ADD ./logstash-logrotate /etc/logrotate.d/logstash
-ADD ./kibana-logrotate /etc/logrotate.d/kibana
+ADD  ./elasticsearch-logrotate /etc/logrotate.d/elasticsearch
+ADD  ./logstash-logrotate /etc/logrotate.d/logstash
+ADD  ./kibana-logrotate /etc/logrotate.d/kibana
 RUN chmod 644 /etc/logrotate.d/elasticsearch \
  && chmod 644 /etc/logrotate.d/logstash \
  && chmod 644 /etc/logrotate.d/kibana
+
+
+## CUSTOM
+
+# Copie du driver Mysql
+ADD  ./logstash/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar /tmp/mysql-connector-java-5.1.40-bin.jar
+
+# Copie de l'instruction d'import de MySQL
+ADD  ./logstash/import-mysql.conf /tmp/import-mysql.conf
+
+# Installation du plugin logstash permettant l'import MySQL
+WORKDIR ${LOGSTASH_HOME}
+RUN gosu logstash bin/logstash-plugin install logstash-input-jdbc
+
+
+# Installation des plugins Kibana
+RUN apt-get install -yy git vim
+WORKDIR ${KIBANA_HOME}
+#RUN gosu kibana bin/kibana-plugin install elastic/sense
+RUN git clone https://github.com/elasticfence/kiBrand.git plugins/kibrand
+RUN git clone https://github.com/sbeyn/kibana-plugin-gauge-sg.git plugins/kibana-plugin-gauge-sg
+RUN git clone https://github.com/JuanCarniglia/kbn_circles_vis.git plugins/kbn_circles_vis
+ADD  ./kibana/plugin/test-picto plugins/test-picto
+ADD  ./kibana/plugin/airbus-plan plugins/airbus-plan
+ADD  ./kibana/plugin/airbus-plan/public/img optimize/bundles/src/ui/public/images/airbus-plan
 
 
 ###############################################################################
 #                                   START
 ###############################################################################
 
-ADD ./start.sh /usr/local/bin/start.sh
+ADD  ./start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
 EXPOSE 5601 9200 9300 5000 5044
