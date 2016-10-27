@@ -159,8 +159,9 @@ RUN apt-get install -yy git vim
 WORKDIR ${KIBANA_HOME}
 #RUN gosu kibana bin/kibana-plugin install elastic/sense
 RUN git clone https://github.com/elasticfence/kiBrand.git plugins/kibrand
-RUN git clone https://github.com/sbeyn/kibana-plugin-gauge-sg.git plugins/kibana-plugin-gauge-sg
-RUN git clone https://github.com/JuanCarniglia/kbn_circles_vis.git plugins/kbn_circles_vis
+#RUN git clone https://github.com/sbeyn/kibana-plugin-gauge-sg.git plugins/kibana-plugin-gauge-sg
+#RUN git clone https://github.com/JuanCarniglia/kbn_circles_vis.git plugins/kbn_circles_vis
+ADD  ./kibana/plugin/kibrand plugins/kibrand
 ADD  ./kibana/plugin/test-picto plugins/test-picto
 ADD  ./kibana/plugin/airbus-plan plugins/airbus-plan
 ADD  ./kibana/plugin/airbus-plan/public/img optimize/bundles/src/ui/public/images/airbus-plan
