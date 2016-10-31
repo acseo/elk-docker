@@ -1,0 +1,203 @@
+[
+  {
+    "_id": "Eurocopter",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Eurocopter",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"Batiment-slash-Etage\",\"panelIndex\":1,\"row\":5,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"},{\"col\":7,\"id\":\"Métriques\",\"panelIndex\":2,\"row\":5,\"size_x\":2,\"size_y\":5,\"type\":\"visualization\"},{\"col\":8,\"id\":\"Tableau-locaux\",\"panelIndex\":3,\"row\":14,\"size_x\":5,\"size_y\":4,\"type\":\"visualization\"},{\"col\":9,\"id\":\"Moyenne\",\"panelIndex\":4,\"row\":5,\"size_x\":2,\"size_y\":5,\"type\":\"visualization\"},{\"col\":8,\"id\":\"Graphe-capacité\",\"panelIndex\":6,\"row\":18,\"size_x\":5,\"size_y\":3,\"type\":\"visualization\"},{\"col\":8,\"id\":\"Capacité-slash-Utilisation\",\"panelIndex\":7,\"row\":10,\"size_x\":5,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Tableau-stat-locaux\",\"panelIndex\":8,\"row\":10,\"size_x\":7,\"size_y\":11,\"type\":\"visualization\"},{\"col\":11,\"id\":\"Picto-Efficacité\",\"panelIndex\":9,\"row\":5,\"size_x\":1,\"size_y\":5,\"type\":\"visualization\"},{\"col\":12,\"id\":\"Picto-disponibilité\",\"panelIndex\":10,\"row\":5,\"size_x\":1,\"size_y\":5,\"type\":\"visualization\"},{\"id\":\"Test-visualisation-locaux\",\"type\":\"visualization\",\"panelIndex\":11,\"size_x\":12,\"size_y\":4,\"col\":1,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{\"P-1\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}},\"vis\":{\"legendOpen\":false}},\"P-3\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":\"table\"}}},\"P-7\":{\"vis\":{\"colors\":{\"Capacité\":\"#508642\",\"Utilisation\":\"#F9934E\"},\"legendOpen\":false}},\"P-11\":{\"spy\":{\"mode\":{\"name\":null,\"fill\":false}}},\"P-2\":{\"spy\":{\"mode\":{\"name\":null,\"fill\":false}}}}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now",
+      "timeFrom": "now-5y",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Moyenne",
+    "_type": "visualization",
+    "_source": {
+      "title": "Moyenne",
+      "visState": "{\"title\":\"Moyenne\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":\"40\"},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"capacity\",\"customLabel\":\"Capacité Moyenne\"}},{\"id\":\"2\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"occupancy\",\"customLabel\":\"Occupation moyenne\"}},{\"id\":\"3\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"Remplissage\",\"customLabel\":\"Remplissage moyen\"}}]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Tableau-locaux",
+    "_type": "visualization",
+    "_source": {
+      "title": "Tableau locaux",
+      "visState": "{\"title\":\"Tableau locaux\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showMeticsAtAllLevels\":false,\"showPartialRows\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{\"customLabel\":\"Nombre de locaux\"}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"type\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}},{\"id\":\"4\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"occupancy\",\"customLabel\":\"Occupants\"}},{\"id\":\"7\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"capacity\",\"customLabel\":\"Capacité\"}},{\"id\":\"5\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"available\",\"customLabel\":\"Disponibilité\"}},{\"id\":\"6\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"Remplissage\",\"customLabel\":\"Remplissage moyen\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Graphe-capacité",
+    "_type": "visualization",
+    "_source": {
+      "title": "Graphe capacité",
+      "visState": "{\"title\":\"Graphe capacité\",\"type\":\"line\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"showCircles\":true,\"smoothLines\":false,\"interpolate\":\"linear\",\"scale\":\"linear\",\"drawLinesBetweenPoints\":false,\"radiusRatio\":\"15\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"localcode\",\"size\":5000,\"order\":\"asc\",\"orderBy\":\"_term\",\"customLabel\":\"Bureau\"}},{\"id\":\"4\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"capacity\",\"customLabel\":\"Capacité\"}},{\"id\":\"5\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"occupancy\",\"customLabel\":\"Occupants\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Métriques",
+    "_type": "visualization",
+    "_source": {
+      "title": "Métriques",
+      "visState": "{\"title\":\"Métriques\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"capacity\",\"customLabel\":\"Capacité\"}},{\"id\":\"2\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"occupancy\",\"customLabel\":\"Occupants\"}},{\"id\":\"3\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"available\",\"customLabel\":\"Disponibilité\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Batiment-slash-Etage",
+    "_type": "visualization",
+    "_source": {
+      "title": "Batiment / Etage",
+      "visState": "{\"title\":\"Batiment / Etage\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":true},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"building\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"floor\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Capacité-slash-Utilisation",
+    "_type": "visualization",
+    "_source": {
+      "title": "Capacité / Utilisation",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"area\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"smoothLines\":false,\"scale\":\"linear\",\"interpolate\":\"linear\",\"mode\":\"overlap\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"capacity\",\"customLabel\":\"Capacité\"}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"localcode\",\"size\":5000,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Local\"}},{\"id\":\"3\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"occupancy\",\"customLabel\":\"Utilisation\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Gauge-remplissage",
+    "_type": "visualization",
+    "_source": {
+      "title": "Gauge remplissage",
+      "visState": "{\"title\":\"Gauge remplissage\",\"type\":\"gauge\",\"params\":{\"colorlevel1Gauge\":\"#FF0000\",\"colorlevel2Gauge\":\"#F97600\",\"colorlevel3Gauge\":\"#F6C600\",\"colorlevel4Gauge\":\"#60B044\",\"heightGauge\":180,\"labelGauge\":null,\"level1Gauge\":30,\"level2Gauge\":50,\"level3Gauge\":60,\"level4Gauge\":61,\"maxGauge\":100,\"minGauge\":0,\"titleGauge\":null},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"Remplissage 100\",\"customLabel\":\"Taux de remplissage\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Occupation",
+    "_type": "visualization",
+    "_source": {
+      "title": "Occupation",
+      "visState": "{\"title\":\"Occupation\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"test\",\"customLabel\":\"Occupation\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Tableau-stat-locaux",
+    "_type": "visualization",
+    "_source": {
+      "title": "Tableau stat locaux",
+      "visState": "{\"title\":\"Tableau stat locaux\",\"type\":\"table\",\"params\":{\"perPage\":1000,\"showPartialRows\":true,\"showMeticsAtAllLevels\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"capacity\",\"customLabel\":\"Capacité\"}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"building\",\"size\":10000,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Batiment\"}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"floor\",\"size\":10000,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Etage\"}},{\"id\":\"4\",\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"localcode\",\"size\":1000000,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Code Local\"}},{\"id\":\"5\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"occupancy\",\"customLabel\":\"Occupation\"}},{\"id\":\"6\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"available\",\"customLabel\":\"Disponibilité\"}},{\"id\":\"7\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"Remplissage\",\"customLabel\":\"Remplissage\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Picto-Efficacité",
+    "_type": "visualization",
+    "_source": {
+      "title": "Picto Efficacité",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"test_picto\",\"params\":{\"colorGauge\":\"#FFCC00\",\"colorlevel1Gauge\":\"#FF0000\",\"colorlevel2Gauge\":\"#F97600\",\"colorlevel3Gauge\":\"#F6C600\",\"colorlevel4Gauge\":\"#60B044\",\"heightGauge\":180,\"iconGauge\":\"fa-bolt fa-inverse\",\"labelGauge\":\"Efficacité\",\"level1Gauge\":30,\"level2Gauge\":60,\"level3Gauge\":90,\"level4Gauge\":100,\"maxGauge\":100,\"minGauge\":0,\"titleGauge\":null},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"Efficacité\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Picto-disponibilité",
+    "_type": "visualization",
+    "_source": {
+      "title": "Picto disponibilité",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"test_picto\",\"params\":{\"titleGauge\":null,\"labelGauge\":\"Disponibilité\",\"heightGauge\":180,\"minGauge\":0,\"maxGauge\":100,\"level1Gauge\":30,\"colorlevel1Gauge\":\"#FF0000\",\"level2Gauge\":60,\"colorlevel2Gauge\":\"#F97600\",\"level3Gauge\":90,\"colorlevel3Gauge\":\"#F6C600\",\"level4Gauge\":100,\"colorlevel4Gauge\":\"#60B044\",\"iconGauge\":\"fa-user fa-inverse\",\"colorGauge\":\"#0EBFE9\"},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"Disponibilité 100\",\"customLabel\":\"Disponibilité\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Circle-Building-slash-Etages",
+    "_type": "visualization",
+    "_source": {
+      "title": "Circle Building / Etages",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"kbn_circles\",\"params\":{\"showMetricsAtAllLevels\":false,\"showLabels\":true,\"showValues\":false,\"enableZoom\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{\"customLabel\":\"Comptage\"}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"building\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"floor\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Etages\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Test-visualisation-locaux",
+    "_type": "visualization",
+    "_source": {
+      "title": "Test visualisation locaux",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"airbus_plan\",\"params\":{\"titleGauge\":null,\"labelGauge\":null,\"heightGauge\":180,\"minGauge\":0,\"maxGauge\":100,\"level1Gauge\":30,\"colorlevel1Gauge\":\"#FF0000\",\"level2Gauge\":60,\"colorlevel2Gauge\":\"#F97600\",\"level3Gauge\":90,\"colorlevel3Gauge\":\"#F6C600\",\"level4Gauge\":100,\"colorlevel4Gauge\":\"#60B044\"},\"aggs\":[{\"id\":\"1\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"id\"}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"building\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"1\"}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"floor\",\"size\":100,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"spy\":{\"mode\":{\"name\":\"table\",\"fill\":false}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  }
+]
