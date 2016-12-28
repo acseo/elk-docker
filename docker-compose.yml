@@ -45,3 +45,4 @@ elk:
     - ALLOW_OVERRIDE=true
     - LETSENCRYPT_HOST=demo.airbushelicopters.serveur-recette.fr
     - LETSENCRYPT_EMAIL=nicolas.potier@acseo.fr
+    - ES_JAVA_OPTS=-Xms2g -Xmx2g
