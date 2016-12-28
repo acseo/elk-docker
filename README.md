@@ -1,49 +1,41 @@
-# Elasticsearch, Logstash, Kibana (ELK) Docker image
+# ELK Eurocopter
 
-[![](https://badge.imagelayers.io/sebp/elk:latest.svg)](https://imagelayers.io/?images=sebp/elk:latest 'Get your own badge on imagelayers.io')
+Ce projet permet de disposer d'une stack ELK associée à MySQL.
 
-This Docker image provides a convenient centralised log server and log management web interface, by packaging Elasticsearch, Logstash, and Kibana, collectively known as ELK.
+## Installation
 
-The following tags are available:
+```
+# Lancement des machines
+docker-compose up -d
+
+# Import des données contenues dans MySQL vers ElasticSearch vi Logstash
+docker exec -i -t eurocopter_elk_1 /bin/bash
+cd /opt/logstash
+gosu logstash bin/logstash -f /tmp/import-mysql.conf
+```
+
+## Accès à Kibana
+
+Accéder à l'adresse : http://0.0.0.0:5601/
+
+Ajouter dans kibana.yml
+################################################################################
+# Custom CONFIG
+################################################################################
+kibrand.enabled: true
+kibrand.name: "NULL"
 
 
-- `es241_l240_k461`, `latest`: Elasticsearch 2.4.1, Logstash 2.4.0, and Kibana 4.6.1.
+## Accès à PHPMyAdmin
 
-- `es240_l240_k460`: Elasticsearch 2.4.0, Logstash 2.4.0, and Kibana 4.6.0.
+faire un ```docker-compose ps``` et identifier le port utilisé par PHPMyAdmin
 
-- `es235_l234_k454`: Elasticsearch 2.3.5, Logstash 2.3.4, and Kibana 4.5.4.
+Accéder à l'adresse http://0.0.0.0:PORT_UTILISE  
 
-- `es234_l234_k453`: Elasticsearch 2.3.4, Logstash 2.3.4, and Kibana 4.5.3.
 
-- `es234_l234_k452`: Elasticsearch 2.3.4, Logstash 2.3.4, and Kibana 4.5.2.
+## Scripted field :
 
-- `es233_l232_k451`: Elasticsearch 2.3.3, Logstash 2.3.2, and Kibana 4.5.1.
-
-- `es232_l232_k450`: Elasticsearch 2.3.2, Logstash 2.3.2, and Kibana 4.5.0.
-
-- `es231_l231_k450`: Elasticsearch 2.3.1, Logstash 2.3.1, and Kibana 4.5.0.
- 
-- `es230_l230_k450`: Elasticsearch 2.3.0, Logstash 2.3.0, and Kibana 4.5.0.
-
-- `es221_l222_k442`: Elasticsearch 2.2.1, Logstash 2.2.2, and Kibana 4.4.2.
-
-- `es220_l222_k441`: Elasticsearch 2.2.0, Logstash 2.2.2, and Kibana 4.4.1.
-
-- `es220_l220_k440`: Elasticsearch 2.2.0, Logstash 2.2.0, and Kibana 4.4.0.
-
-- `E1L1K4`: Elasticsearch 1.7.3, Logstash 1.5.5, and Kibana 4.1.2.
-
-**Note** – See the documentation page for more information on pulling specific combinations of versions of Elasticsearch, Logstash and Kibana.
-
-### Documentation
-
-See the [ELK Docker image documentation web page](http://elk-docker.readthedocs.io/) for complete instructions on how to use this image.
-
-### Docker Hub
-
-This image is hosted on Docker Hub at [https://hub.docker.com/r/sebp/elk/](https://hub.docker.com/r/sebp/elk/).
-
-### About
-
-Written by [Sébastien Pujadas](https://pujadas.net), released under the [Apache 2 license](https://www.apache.org/licenses/LICENSE-2.0).
-
+    * Remplissage	(doc['capacity'].value > 0 && doc['occupancy'].value > 0) ? (doc['occupancy'].value)/(doc['capacity'].value) : 0	Percentage
+    * Remplissage 100	(doc['capacity'].value > 0 && doc['occupancy'].value > 0) ? (doc['occupancy'].value)/(doc['capacity'].value)*100 : 0	Percentage	 
+    * Efficacité	(doc['occupancy'].value > 0) ? ((20/(doc['surface'].value/doc['occupancy'].value))-1)*100 : 0	Number
+    * Disponibilité 100	(doc['capacity'].value > 0 && doc['occupancy'].value > 0) ? 100 - (doc['occupancy'].value)/(doc['capacity'].value)*100 : 100
