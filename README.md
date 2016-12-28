@@ -35,6 +35,7 @@ Accéder à l'adresse http://0.0.0.0:PORT_UTILISE
 
 ## Scripted field :
 
+    * test	(doc['capacity'].value > 0 && doc['occupancy'].value > 0) ? (doc['occupancy'].value)/(doc['capacity'].value) : 0	Percentage
     * Remplissage	(doc['capacity'].value > 0 && doc['occupancy'].value > 0) ? (doc['occupancy'].value)/(doc['capacity'].value) : 0	Percentage
     * Remplissage 100	(doc['capacity'].value > 0 && doc['occupancy'].value > 0) ? (doc['occupancy'].value)/(doc['capacity'].value)*100 : 0	Percentage	 
     * Efficacité	(doc['occupancy'].value > 0) ? ((20/(doc['surface'].value/doc['occupancy'].value))-1)*100 : 0	Number
