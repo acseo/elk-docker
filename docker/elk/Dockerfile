@@ -7,9 +7,6 @@ MAINTAINER Nicolas Potier http://www.acseo.fr
 # Copie du driver Mysql
 ADD  ./logstash/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar /tmp/mysql-connector-java-5.1.40-bin.jar
 
-# Copie de l'instruction d'import de MySQL
-ADD  ./logstash/import-mysql.conf /tmp/import-mysql.conf
-
 # Installation du plugin logstash permettant l'import MySQL
 WORKDIR ${LOGSTASH_HOME}
 RUN gosu logstash bin/logstash-plugin install logstash-input-jdbc

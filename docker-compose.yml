@@ -39,6 +39,8 @@ elk:
   volumes:
     - ./kibana/plugins:/opt/kibana/plugins
     - ./kibana/plugin/airbus-plan/public/img:/opt/kibana/optimize/bundles/src/ui/public/images/airbus-plan
+    - ./docker/elk/logstash/import-mysql.conf:/tmp/import-mysql.conf
+
   environment:
     - VIRTUAL_HOST=demo.airbushelicopters.serveur-recette.fr
     - VIRTUAL_PORT=5601
