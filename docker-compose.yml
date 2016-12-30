@@ -48,4 +48,4 @@ elk:
     - LETSENCRYPT_HOST=demo.airbushelicopters.serveur-recette.fr
     - LETSENCRYPT_EMAIL=nicolas.potier@acseo.fr
     - ES_JAVA_OPTS=-Xms2g -Xmx2g
-    - LOCAL_AUTH_LOGINS=admin:password
+    #- LOCAL_AUTH_LOGINS=admin:password

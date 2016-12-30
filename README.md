@@ -40,3 +40,8 @@ Accéder à l'adresse http://0.0.0.0:PORT_UTILISE
     * Remplissage 100	(doc['capacity'].value > 0 && doc['occupancy'].value > 0) ? (doc['occupancy'].value)/(doc['capacity'].value)*100 : 0	Percentage	 
     * Efficacité	(doc['occupancy'].value > 0) ? ((20/(doc['surface'].value/doc['occupancy'].value))-1)*100 : 0	Number
     * Disponibilité 100	(doc['capacity'].value > 0 && doc['occupancy'].value > 0) ? 100 - (doc['occupancy'].value)/(doc['capacity'].value)*100 : 100
+
+## Login
+
+Le login / mot de passe est stocké dans le fichier kibana/plugins/kibana-auth-plugin/server/auth-local-cookie.js, ligne 3
+Pour l'instant, la variable d'environnement passée dans docker-compose.yml (LOCAL_AUTH_LOGINS) ne semble pas fonctionner
